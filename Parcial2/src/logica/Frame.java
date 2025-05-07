@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements ActionListener {
 
     private JLabel lResultado;
     private JTextField lBase;
@@ -24,12 +24,7 @@ public class Frame extends JFrame {
         this.lBase = new JTextField(10);
         this.lExponente = new JTextField(10);
         this.bCalcular = new JButton("Calcular");
-        this.bCalcular.addActionListener(new ActionListener() {
-            @Override
-        public void actionPerformed(ActionEvent e) {
-                calcularPotencia();
-            }
-        });
+        this.bCalcular.addActionListener(this);
         panel.add(lBaseLabel);
         panel.add(this.lBase);
         panel.add(lExponenteLabel);
@@ -40,15 +35,16 @@ public class Frame extends JFrame {
         this.setVisible(true);
     }
     
-    private void calcularPotencia() {
-        try {
-            int base = Integer.parseInt(this.lBase.getText());
-            int exponente = Integer.parseInt(this.lExponente.getText());
-            int resultado = Parcial.potencia(base, exponente);
-            this.lResultado.setText("Resultado: " + resultado);
-            
-        } catch (ArithmeticException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.bCalcular) {
+            try {
+                int base = Integer.parseInt(this.lBase.getText());
+                int exponente = Integer.parseInt(this.lExponente.getText());
+                int resultado = Parcial.potencia(base, exponente);
+                this.lResultado.setText("Resultado: " + resultado);
+            } catch (ArithmeticException ex) {
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
         }
     }
     
