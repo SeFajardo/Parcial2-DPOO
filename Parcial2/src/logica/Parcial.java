@@ -7,17 +7,16 @@ public class Parcial {
 	public Parcial() {
 		super();
 	}
-	public int potencia(int b, int e) throws IllegalArgumentException, ArithmeticException {
-		int resultado = 0;
-		if (e<0) {
-			throw new IllegalArgumentException("Exponente no puede ser negativo para un entero.");
-		}try {
-		    resultado = (int) Math.pow(b, e);
-		}catch (ArithmeticException excedido) {
-		    throw new ArithmeticException("El resultado excede los límites de un int.");
-		}
-		 return resultado;
-}
+	public static int potencia(int b, int e) throws ArithmeticException {
+	    if (e < 0) {
+	        throw new ArithmeticException("El exponente no puede ser negativo");
+	    }
+	    double resultado = Math.pow(b, e);
+	    if (resultado > Integer.MAX_VALUE) {
+	        throw new ArithmeticException("La potencia excede el límite de entero");
+	    }
+	    return (int)resultado;
+	}
 
 	public int getE() {
 		return e;
